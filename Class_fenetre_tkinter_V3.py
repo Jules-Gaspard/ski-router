@@ -31,7 +31,7 @@ class FenetreGraphique:
         self.ligne_trace = []
         self.create_loading_screen()
         self.analyzer = SkiResortAnalyzer()
-        self.graph, self.paths, self.nodes = self.analyzer.test_geojson("chamrousse.geojson")
+        self.graph, self.paths, self.nodes = self.analyzer.test_geojson("Ski-Areas/chamrousse.geojson")
         self.root.after(3000, self.show_main_window)
         
         

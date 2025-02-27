@@ -1,32 +1,71 @@
-READ ME :
+## Ski Router
 
-Ouvrir les fenêtre suivantes depuis le dossier extrait du zip donné: 
+Python program the best route from A to B in a ski resort
+Authors: Jules-Gaspard GEORGE, Nicolas FAU
 
-- Class_main_V3
-- Class_fenetre_tkinter_V3
+## Creating Resort Information
+
+OpenStreetMap has coordinates of all ski pistes and lifts. These can be exported in json format using the overpass-turbo.eu website.
+Locate the ski area and create a bounding box to select all runs and lifts then run the following query:
+
+```json
+[out:json][timeout:25];
+// gather results
+(  
+  // query part for: “piste:type”  
+  way["piste:type"=downhill]({{bbox}});  
+  way[aerialway][aerialway!=zip_line]({{bbox}});
+  relation["piste:type"=downhill]({{bbox}});
+);
+// print results
+out body;
+>;
+out skel qt;
+```
+
+Export the file as geojson and copy it into the Ski-Areas directory
+
+## Set Up
+
+$ python3 -m venv venv
+$ source venv/bin/activate
+
+sudo apt-get install python3-tk
 
 
-Si votre terminal ne comporte pas les bibliothèques suivantes, il faut les installer (ex : commande pour installer "bibli" : pip install bibli) : 
+If your terminal does not include the following libraries, they must be installed (e.g.: command to install “bibli”: pip
+install bibli):
 
 - geojson
 - numpy
 - math
-- os 
+- os
 - tkinter
 - tkintermapview
 - PIL
 - heapq
 
+## Running
 
-Pour ouvrir la fenêtre graphique il suffit maintenant d'exécuter le programme "Class_fenetre_tkinter_V3". 
+Open the following windows from the folder extracted from the given zip file:
 
-Une première fenêtre d'accueil s'ouvre afin de montrer le lancement de l'application. Elle se ferme rapidement et dans un second temps la fenêtre finale s'ouvre.  On a donc une carte représentant le domaine skiable avec des points correspondants aux débuts et fins des pistes et des remontées. Ces points représentent aussi les croisements possibles entre certaines pistes. 
+- Class_main_V3
+- Class_fenetre_tkinter_V3
 
-Vous pouvez donc cliquer sur le point où vous vous trouvez. Ce point s'affiche dans la ligne "Point de départ". Vous pouvez maintenant cliquer sur votre point de destination. Celui-ci s'affiche dans la ligne "Point d'arrivée".
+To open the graphics window, simply run the “Class_fenetre_tkinter_V3” program.
 
-Cliquez maintenant sur le boutton "Afficher" pour afficher le trajet que vous devez suivre. Ce trajet s'affiche sur la carte mais aussi en texte sous forme d'étapes à suivre dans la partie gauche de la fenêtre graphique. 
+An initial welcome window opens, showing the application being launched. It quickly closes, and then the final window
+opens. The result is a map representing the ski area, with points corresponding to the start and end of pistes and
+lifts. These points also represent possible intersections between certain slopes.
 
-Si vous voulez trouver un autre chemin reliant 2 points de la station, il vous suffit de cliquer sur un autre point de départ puis un autre point d'arrivée et sur le boutton "afficher". Vous pouvez aussi effacer les chemins affichés sur la carte avec le bouton "Effacer les trajets précédents". 
+You can then click on the point where you are. This point appears in the “Start point” line. You can now click on your
+destination point. This is displayed in the “End point” line.
 
-Bonne navigation !
+Now click on the “View” button to display the route you need to take. This route is displayed not only on the map, but
+also in text in the form of steps to follow in the left-hand section of the graphics window.
 
+If you want to find another route linking 2 points in the station, simply click on another start point, then another end
+point, and then on the “Show” button. You can also clear the paths displayed on the map with the “Clear previous routes”
+button.
+
+Happy navigation!
